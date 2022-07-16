@@ -19,7 +19,8 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        agent.SetDestination(other.transform.position);
+        if (other.gameObject.CompareTag("Player"))
+            agent.destination = player.transform.position;
     }
 
 }
