@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
             
         return Physics.BoxCast(boxcollider.bounds.center, boxcollider.bounds.size, Vector3.down, transform.rotation, 0.1f, groundLayer);
         */
-
-        return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.05f);
+        int groundMask = 1; // Only Ground ;
+        return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.05f, groundMask);
     }
 }
