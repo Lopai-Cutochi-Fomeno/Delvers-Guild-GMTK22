@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, rb.velocity.y, 0);
 
         //Jumping
-        if (Input.GetAxisRaw("Vertical") == 1 && canJump)
+        if (Input.GetAxisRaw("Jump") == 1 && canJump)
         {
             canJump = false;
             rb.velocity = new Vector3(rb.velocity.x, jumpstrength, 0);
