@@ -11,12 +11,15 @@ public class ShakeScript : MonoBehaviour
     private bool running = false;
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown (KeyCode.E) && !running ) {
-            running = true;
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown (KeyCode.E) && !running ) {
+    //         startShake();
+    //     }
+    // }
+    public void startShake() {
+        if (!running) {
             StartCoroutine(Shaking());
- 
         }
     }
     IEnumerator Shaking()
