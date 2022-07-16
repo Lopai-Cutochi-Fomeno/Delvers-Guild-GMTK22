@@ -12253,8 +12253,8 @@ GameObject:
   - component: {fileID: 1525215160}
   - component: {fileID: 1525215159}
   - component: {fileID: 1525215158}
-  - component: {fileID: 1525215162}
   - component: {fileID: 1525215163}
+  - component: {fileID: 1525215164}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -12342,29 +12342,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1525215162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525215157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d07eb509359c89429543c8bd7c88a6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  jumpstrength: 7
-  coyoteTime: 0.5
-  touchingGround: 0
-  canJump: 0
-  distanceToGround: 1
-  groundLayer:
-    m_Bits: 64
-  boxcollider: {fileID: 0}
-  rb: {fileID: 0}
-  coyotetimer: 0
 --- !u!54 &1525215163
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12381,6 +12358,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1525215164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525215157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab135f79210745d498f1be6b4eb7ab09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 7
+  jumpstrength: 7
+  coyoteTime: 0.1
+  touchingGround: 0
+  canJump: 0
+  distanceToGround: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  coyotetimer: 0
 --- !u!1 &1540442560
 GameObject:
   m_ObjectHideFlags: 0
