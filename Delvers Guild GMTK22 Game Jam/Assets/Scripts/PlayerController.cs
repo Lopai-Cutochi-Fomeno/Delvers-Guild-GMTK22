@@ -9,23 +9,20 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jumpstrength;
     public float coyoteTime;
+    public bool touchingGround;
     public bool canJump = false;
-    public float baseGravity = 10;
-    public float maxFallSpeed = 50;
 
-    //public for the purpose of debugging and whatnot
-    public float currentGravity;
-    public bool canSmallJump = true;
     public float distanceToGround;
+
     [SerializeField] private LayerMask groundLayer;
+    private BoxCollider boxcollider;
     private Rigidbody rb;
     public float coyotetimer = 0;
 
     void Start()
     {
+        boxcollider = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
-        //setting the gravity to base gravity
-        currentGravity = baseGravity;
     }
 
     // Update is called once per frame
@@ -34,19 +31,18 @@ public class PlayerController : MonoBehaviour
         //Movement
         rb.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, rb.velocity.y, 0);
 
-        //small jumps
-        if (Input.GetKeyUp(KeyCode.Space) && !isGrounded() && rb.velocity.y > 0 && canSmallJump)
+        //Jumping
+        if (Input.GetAxisRaw("Vertical") == 1 && canJump)
         {
-            canSmallJump = false;
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y / 2, 0);
+            canJump = false;
+            rb.velocity = new Vector3(rb.velocity.x, jumpstrength, 0);
         }
 
-        //check if grounded for jump stuff
+        //check if grounded
         if (isGrounded())
         {
             coyotetimer = 0;
             canJump = true;
-            canSmallJump = true;
         }
         else
         {
@@ -56,29 +52,9 @@ public class PlayerController : MonoBehaviour
                 canJump = false;
             }
         }
-        
-        //Jumping
-        if (Input.GetKey(KeyCode.Space) && canJump)
-        {
-            canJump = false;
-            rb.velocity = new Vector3(rb.velocity.x, jumpstrength, 0);
-        }
     }
-    private void FixedUpdate()
-    {
-        //apply custom gravity
-        if (rb.velocity.y > -1 * maxFallSpeed)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - currentGravity * Time.deltaTime, 0);
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-    }
-    private void setGravity(float gravity)
-    {
-
     }
 
     private bool isGrounded()
