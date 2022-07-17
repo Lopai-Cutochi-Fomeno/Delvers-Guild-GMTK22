@@ -14,25 +14,34 @@ public class RotateScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    // void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Space)) {
+    //         startRotation();
+    //     }
+    // }
+
+    public void startRotation()
     {
-        if (Input.GetKeyDown (KeyCode.Space) && !running ) {
+        if (!running)
+        {
             running = true;
             StartCoroutine(Shaking(Random.rotation));
         }
+
     }
-    IEnumerator Shaking(Quaternion angle)
+    IEnumerator Shaking(Quaternion rotationTarget)
     {
-        Quaternion startRotation = transform.rotation;
+        Quaternion startOrientation = transform.rotation;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration) {
             elapsedTime += Time.deltaTime;
             float value = intensityRotation.Evaluate(elapsedTime/duration);
-            transform.rotation = Quaternion.Lerp(startRotation, angle, value);
+            transform.rotation = Quaternion.Lerp(startOrientation, rotationTarget, value);
             yield return null;
         }
-        transform.rotation = startRotation;
+        transform.rotation = startOrientation;
         running = false;
     }
 }

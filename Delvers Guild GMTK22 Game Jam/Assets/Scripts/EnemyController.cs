@@ -6,6 +6,12 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
 
+    
+    public bool isPushedBack = false;
+    public bool isDying = false;
+    public bool attacking = false;
+
+    public Vector3 pushVelocity = new Vector3(0f,0f,0f);
     public NavMeshAgent agent;
     public float checkDistance = 10f;
     private GameObject player;
@@ -16,6 +22,15 @@ public class EnemyController : MonoBehaviour
         agent = this.GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
+
+    void Update()
+    {
+        if(isPushedBack) {
+            agent.velocity = pushVelocity;
+        }
+    }
+
+
 
     private void OnTriggerStay(Collider other)
     {
