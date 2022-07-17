@@ -6,7 +6,8 @@ using UnityEngine.AI;
 
 public class CastLogic : MonoBehaviour
 {
-    public GameObject die;
+    public GameObject dieDefault;
+    public GameObject dieAllSides;
     public GameObject ice;
     public GameObject dieCam;
     // Time to fire
@@ -16,13 +17,17 @@ public class CastLogic : MonoBehaviour
     public float cooldown = 3.0f;
     private bool canCast = true;
     private float timeSinceCast;
+    
+    public Material[] myDiceMaterials = new Material[6];
+    
     private Dictionary<int, GameObject> inTriggerRange;
 
 
     void Start() {
-        die.GetComponent<RotateScript>().duration = animationDuration;
+        dieDefault.GetComponent<RotateScript>().duration = animationDuration;
+        dieAllSides.layer = 9;
         dieCam.GetComponent<ShakeScript>().duration = animationDuration;
-        inTriggerRange = gameObject.GetComponent<TriggerManager>().enemyDict;
+        inTriggerRange = gameObject.GetComponentInChildren<TriggerManager>().enemyDict;
         timeSinceCast = cooldown; // set to match cooldown initially
     }
     // Update is called once per frame
@@ -30,12 +35,16 @@ public class CastLogic : MonoBehaviour
     {
         if (timeSinceCast >= cooldown)
         {
+            if (!canCast) {
+                dieDefault.layer = 8;
+                dieAllSides.layer = 9;
+                canCast = true; // shouldn't matter that this is here
+            }
             if (Input.GetKeyDown(KeyCode.E))
             {
-                die.GetComponent<RotateScript>().startRotation();
+                dieDefault.GetComponent<RotateScript>().startRotation();
                 dieCam.GetComponent<ShakeScript>().startShake();
                 timeSinceCast = 0.0f;
-                canCast = true; // shouldn't matter that this is here
             }
         }
         else
@@ -45,8 +54,11 @@ public class CastLogic : MonoBehaviour
             {
                 canCast = false;
                 int abilitySelector = Random.Range(0, 6);
-                // StartCoroutine(Cast(abilitySelector));
-                StartCoroutine(Cast(3));
+                dieAllSides.GetComponent<Renderer>().material = myDiceMaterials[abilitySelector];
+                dieDefault.layer = 9;
+                dieAllSides.layer = 8;
+                StartCoroutine(Cast(abilitySelector));
+                //StartCoroutine(Cast(0));
             }
 
         }
@@ -72,6 +84,8 @@ public class CastLogic : MonoBehaviour
                 break;
             case 2:
                 Debug.Log(2 + " Player Gets Knocked Back " + abilitySelector);
+
+                StartCoroutine(gameObject.GetComponent<PlayerController>().knockBack(Vector3.right * 20, 0.5f));
                 break;
             case 3:
                 Debug.Log(3 + " Knock Enemies Back" + abilitySelector);
@@ -108,7 +122,7 @@ public class CastLogic : MonoBehaviour
                 {
                     int id = o.GetInstanceID();
                     Vector3 pos = o.transform.position;
-                    GameObject explodice = GameObject.Instantiate(die);
+                    GameObject explodice = GameObject.Instantiate(dieAllSides);
                     explodice.layer = 1;
                     explodice.transform.position = pos;
                     Debug.Log(gameObject.transform.position);

@@ -9,28 +9,31 @@ public class RotateScript : MonoBehaviour
 
     // Start is called before the first frame update
     private bool running = false;
+    private Vector3 rotationStandard = new Vector3(90f, -90f, 45f);
+    
+
     void Start()
     {
+        
     }
-
     // Update is called once per frame
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Space)) {
-    //         startRotation();
-    //     }
-    // }
+     void Update()
+     {
+         if(!running) {
+            transform.Rotate(rotationStandard * Time.deltaTime);
+         }
+     }
 
     public void startRotation()
     {
         if (!running)
         {
             running = true;
-            StartCoroutine(Shaking(Random.rotation));
+            StartCoroutine(Rotate(Random.rotation));
         }
 
     }
-    IEnumerator Shaking(Quaternion rotationTarget)
+    IEnumerator Rotate(Quaternion rotationTarget)
     {
         Quaternion startOrientation = transform.rotation;
         float elapsedTime = 0f;
