@@ -17,6 +17,7 @@ public class TriggerManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
+            Debug.Log(other.name + " entered.");
             try {
                 enemyDict.Add(other.gameObject.GetInstanceID(), other.gameObject);
             }
@@ -29,6 +30,7 @@ public class TriggerManager : MonoBehaviour
     {
         if ( other.gameObject.tag == "Enemy")
         {
+            Debug.Log(other.name + "left.");
            enemyDict.Remove(other.gameObject.GetInstanceID());
         }
     }

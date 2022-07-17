@@ -10,6 +10,7 @@ public class SoundTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.tag == "Player")
         AudioManager.instance.Play(audioName);
     }
 }
