@@ -5,6 +5,8 @@ using UnityEngine;
 public class MenuScript : MonoBehaviour
 {
     public GameObject menu;
+    private bool gamepaused = false;
+    public bool gameover = false;
 
     private void Awake()
     {
@@ -15,13 +17,20 @@ public class MenuScript : MonoBehaviour
     void Update()
     {
         //open menu
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)&&!gameover )
         {
-            if (!menu.activeSelf)
+            if (!gamepaused)
             {
                 menu.SetActive(true);
+                gamepaused = true;
+                Time.timeScale = 0;
             }
-            else { menu.SetActive(false); }
+            else 
+            { 
+                menu.SetActive(false);
+                gamepaused = false;
+                Time.timeScale = 1;
+            }
         }
     }
 }
