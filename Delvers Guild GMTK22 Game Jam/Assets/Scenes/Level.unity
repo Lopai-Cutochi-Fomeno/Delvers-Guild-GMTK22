@@ -13090,6 +13090,8 @@ MonoBehaviour:
   maxXRot: 15
   moveSpeed: 10
   isLookingDown: 0
+  target: {fileID: 1718947799}
+  smoothSpeed: 0.125
 --- !u!1001 &987210210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25424,6 +25426,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopIsJumping: 10
+--- !u!4 &1718947799 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 525a4789156204c4ebb5c7e0c4996acb, type: 3}
+  m_PrefabInstance: {fileID: 1718947790}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1720384533
 Mesh:
   m_ObjectHideFlags: 0
