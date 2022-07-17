@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: 98619437a6d346b41842dec32077892d
+guid: 6560d66a5c9e28440b888844694b67f0
 ModelImporter:
   serializedVersion: 22103
   internalIDToNameTable:
+  - first:
+      74: 4781951162920444690
+    second: Action
   - first:
       74: 4723146814002874508
     second: Attack
@@ -10,7 +13,7 @@ ModelImporter:
       74: -982115091633673366
     second: Death
   - first:
-      74: 3529604376362236615
+      74: -2065775210875148712
     second: Move Around
   - first:
       74: 5862100331879156779
@@ -19,7 +22,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: OneEyeBunMat
+      name: Material
     second: {fileID: 2100000, guid: 71928be983a54464288b9d85a665790e, type: 2}
   materials:
     materialImportMode: 2
@@ -83,14 +86,14 @@ ModelImporter:
       takeName: Armature|Death
       internalID: 0
       firstFrame: 0
-      lastFrame: 6
+      lastFrame: 27
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -109,7 +112,7 @@ ModelImporter:
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Move Around
-      takeName: Armature|Move Around
+      takeName: Armature|Fly
       internalID: 0
       firstFrame: 0
       lastFrame: 25
@@ -141,7 +144,7 @@ ModelImporter:
       takeName: Armature|Pushback
       internalID: 0
       firstFrame: 0
-      lastFrame: 25
+      lastFrame: 23
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -168,7 +171,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.5
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -222,7 +225,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
