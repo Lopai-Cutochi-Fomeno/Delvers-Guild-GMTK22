@@ -18,6 +18,8 @@ public class CastLogic : MonoBehaviour
     private bool canCast = true;
     private float timeSinceCast;
     
+    public Material[] myDiceMaterials = new Material[6];
+    
     private Dictionary<int, GameObject> inTriggerRange;
 
 
@@ -36,7 +38,6 @@ public class CastLogic : MonoBehaviour
             if (!canCast) {
                 dieDefault.layer = 8;
                 dieAllSides.layer = 9;
-                dieDefault.transform.rotation = dieAllSides.transform.rotation;
                 canCast = true; // shouldn't matter that this is here
             }
             if (Input.GetKeyDown(KeyCode.E))
@@ -53,10 +54,11 @@ public class CastLogic : MonoBehaviour
             {
                 canCast = false;
                 int abilitySelector = Random.Range(0, 6);
+                dieAllSides.GetComponent<Renderer>().material = myDiceMaterials[abilitySelector];
                 dieDefault.layer = 9;
                 dieAllSides.layer = 8;
-                // StartCoroutine(Cast(abilitySelector));
-                StartCoroutine(Cast(0));
+                StartCoroutine(Cast(abilitySelector));
+                //StartCoroutine(Cast(0));
             }
 
         }
