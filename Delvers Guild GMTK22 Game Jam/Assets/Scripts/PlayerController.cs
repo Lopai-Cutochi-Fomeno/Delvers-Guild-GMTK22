@@ -30,7 +30,10 @@ public class PlayerController : MonoBehaviour
     private float invulnerabilityTimer = 0;
 
     Vector3 rotationAngle = new Vector3(0f, 180f, 0f);
-    public bool walkingRight = true;
+    public float walkingDirection = -1;
+    
+    private bool isKnockedBack = false;
+    private Vector3 knockbackVelocity = new Vector3(0f,0f,0f);
 
     void Start()
     {
@@ -60,10 +63,10 @@ public class PlayerController : MonoBehaviour
         }
 
         //rotate the player into walking direction
-        bool lastWalkingRight = walkingRight;
-        if (Input.GetAxis("Horizontal") < 0) walkingRight = false;
-        if (Input.GetAxis("Horizontal") > 0) walkingRight = true;
-        if(lastWalkingRight != walkingRight)
+        float lastWalkingRight = walkingDirection;
+        if (Input.GetAxis("Horizontal") < 0) walkingDirection = 1.0f;
+        if (Input.GetAxis("Horizontal") > 0) walkingDirection = -1.0f;
+        if(lastWalkingRight != walkingDirection)
         {
             transform.Rotate(rotationAngle);
         }
@@ -93,6 +96,12 @@ public class PlayerController : MonoBehaviour
             // Yes, you can jump very high if you are very lucky
             jumpStrengthMultiplier = jumpStrengthMultiplierBaseValue;
         }
+        
+        if(isKnockedBack) 
+        {
+            rb.velocity += knockbackVelocity;
+        }
+
     }
     private void FixedUpdate()
     {
@@ -167,10 +176,18 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(transform.position);
         }
-            
+
         return Physics.BoxCast(boxcollider.bounds.center, boxcollider.bounds.size, Vector3.down, transform.rotation, 0.1f, groundLayer);
         */
         int groundMask = Physics.DefaultRaycastLayers ^ (1 << 4); // Only Ground ;
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.05f, groundMask);
+    }
+    public IEnumerator knockBack(Vector3 velocity, float seconds) 
+    {
+        isKnockedBack = true;
+        knockbackVelocity = velocity * walkingDirection;
+        yield return new WaitForSeconds(seconds);
+        knockbackVelocity = new Vector3(0f,0f,0f);
+        isKnockedBack = false;
     }
 }

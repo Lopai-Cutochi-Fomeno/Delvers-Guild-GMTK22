@@ -16,13 +16,14 @@ public class CastLogic : MonoBehaviour
     public float cooldown = 3.0f;
     private bool canCast = true;
     private float timeSinceCast;
+    
     private Dictionary<int, GameObject> inTriggerRange;
 
 
     void Start() {
         die.GetComponent<RotateScript>().duration = animationDuration;
         dieCam.GetComponent<ShakeScript>().duration = animationDuration;
-        inTriggerRange = gameObject.GetComponent<TriggerManager>().enemyDict;
+        inTriggerRange = gameObject.GetComponentInChildren<TriggerManager>().enemyDict;
         timeSinceCast = cooldown; // set to match cooldown initially
     }
     // Update is called once per frame
@@ -46,7 +47,7 @@ public class CastLogic : MonoBehaviour
                 canCast = false;
                 int abilitySelector = Random.Range(0, 6);
                 // StartCoroutine(Cast(abilitySelector));
-                StartCoroutine(Cast(3));
+                StartCoroutine(Cast(0));
             }
 
         }
@@ -72,6 +73,8 @@ public class CastLogic : MonoBehaviour
                 break;
             case 2:
                 Debug.Log(2 + " Player Gets Knocked Back " + abilitySelector);
+
+                StartCoroutine(gameObject.GetComponent<PlayerController>().knockBack(Vector3.right * 20, 0.5f));
                 break;
             case 3:
                 Debug.Log(3 + " Knock Enemies Back" + abilitySelector);
