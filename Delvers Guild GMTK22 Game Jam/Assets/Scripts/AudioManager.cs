@@ -32,10 +32,12 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
+
+        Play("Theme Song");
     }
 
 
-    private void Start()
+    public void PlayStealDice()
     {
         Play("StealDice");
     }

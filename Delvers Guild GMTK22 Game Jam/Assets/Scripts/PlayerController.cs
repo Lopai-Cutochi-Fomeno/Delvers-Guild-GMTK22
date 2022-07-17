@@ -148,7 +148,8 @@ public class PlayerController : MonoBehaviour
             {
                 //Gameover
                 Debug.Log("GameOver");
-                Time.timeScale = 0;
+                AudioManager.instance.Play("GameOver");
+                //Time.timeScale = 0;
                 gameoverMenu.SetActive(true);
                 this.GetComponent<MenuScript>().gameover = true;
             }

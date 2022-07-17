@@ -5,7 +5,7 @@ using UnityEngine;
 public class MCAnimation : MonoBehaviour
 {
     private Animator mAnimator;
-    int isRunningHash, isJumpingHash, isFallingHash;
+    int isRunningHash, isJumpingHash, isFallingHash, isDyingHash;
     Rigidbody playerRb;
     public float stopIsJumping = 15f;
 
@@ -16,6 +16,7 @@ public class MCAnimation : MonoBehaviour
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
         isFallingHash = Animator.StringToHash("isFalling");
+        isDyingHash = Animator.StringToHash("isDying");
         playerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
     }
 
@@ -43,6 +44,8 @@ public class MCAnimation : MonoBehaviour
             mAnimator.SetBool(isJumpingHash, playerRb.velocity.y > stopIsJumping && !playerCanJump);
 
             mAnimator.SetBool(isFallingHash, playerRb.velocity.y < stopIsJumping+0.2f && !playerCanJump);
+
+            mAnimator.SetBool(isDyingHash, GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().health <= 0);
         }
     }
 }

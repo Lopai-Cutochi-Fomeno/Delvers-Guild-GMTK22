@@ -12,6 +12,7 @@ public class SceneLoader : MonoBehaviour
     {
         LoadScene("Level");
         Time.timeScale = 1;
+        AudioManager.instance.PlayStealDice();
     }
     
     public void ReloadScene()
