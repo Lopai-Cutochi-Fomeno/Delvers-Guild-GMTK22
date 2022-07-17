@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10905,7 +10905,6 @@ GameObject:
   - component: {fileID: 883175065}
   - component: {fileID: 883175064}
   - component: {fileID: 883175063}
-  - component: {fileID: 883175062}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
@@ -10913,19 +10912,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
   m_IsActive: 1
---- !u!135 &883175062
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883175061}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &883175063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10942,8 +10928,11 @@ MonoBehaviour:
   isDying: 0
   attacking: 0
   pushVelocity: {x: 0, y: 0, z: 0}
+  health: 1
   agent: {fileID: 0}
-  checkDistance: 0
+  checkDistance: 10
+  player: {fileID: 0}
+  distanceToPlayer: 0
 --- !u!195 &883175064
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -21091,6 +21080,8 @@ MonoBehaviour:
   dieCam: {fileID: 185590653}
   castTime: 1.1
   animationDuration: 1
+  isKnockedBack: 0
+  knockbackVelocity: {x: 0, y: 0, z: 0}
   cooldown: 3
 --- !u!1001 &1528936591
 PrefabInstance:
@@ -25881,6 +25872,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10b7cbb95d8f1f423a3ecd81f316d289,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10b7cbb95d8f1f423a3ecd81f316d289,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10b7cbb95d8f1f423a3ecd81f316d289,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 10b7cbb95d8f1f423a3ecd81f316d289,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -35.65
       objectReference: {fileID: 0}
@@ -26319,7 +26325,6 @@ GameObject:
   - component: {fileID: 1967752452}
   - component: {fileID: 1967752451}
   - component: {fileID: 1967752450}
-  - component: {fileID: 1967752449}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -26327,19 +26332,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!135 &1967752449
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967752448}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1967752450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26356,8 +26348,11 @@ MonoBehaviour:
   isDying: 0
   attacking: 0
   pushVelocity: {x: 0, y: 0, z: 0}
+  health: 1
   agent: {fileID: 0}
-  checkDistance: 0
+  checkDistance: 10
+  player: {fileID: 0}
+  distanceToPlayer: 0
 --- !u!195 &1967752451
 NavMeshAgent:
   m_ObjectHideFlags: 0
