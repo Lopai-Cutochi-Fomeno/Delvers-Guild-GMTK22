@@ -11,13 +11,13 @@ public class SceneLoader : MonoBehaviour
     public void StartGame()
     {
         Time.timeScale = 1;
-        LoadScene("LevelPrototype");
+        LoadScene("Level");
     }
     
     public void ReloadScene()
     {
         Time.timeScale = 1;
-        LoadScene("LevelPrototype");
+        LoadScene("Level");
     }
 
     public void LoadScene(string sceneName)
