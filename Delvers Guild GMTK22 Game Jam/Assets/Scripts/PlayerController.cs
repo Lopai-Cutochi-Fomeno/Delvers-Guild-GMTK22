@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jumpstrength;
     public float coyoteTime;
-    public bool canJump = false;
+    public bool canJump = true;
     public float baseGravity = 10;
     public float maxFallSpeed = 50;
 
@@ -20,12 +20,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     private Rigidbody rb;
     public float coyotetimer = 0;
+    public float jumpStrengthMultiplierBaseValue = 1;
+    public float jumpStrengthMultiplier ;
+    
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         //setting the gravity to base gravity
         currentGravity = baseGravity;
+        jumpStrengthMultiplier = jumpStrengthMultiplierBaseValue;
     }
 
     // Update is called once per frame
@@ -37,12 +41,13 @@ public class PlayerController : MonoBehaviour
         //small jumps
         if (Input.GetKeyUp(KeyCode.Space) && !isGrounded() && rb.velocity.y > 0 && canSmallJump)
         {
+            Debug.Log("small");
             canSmallJump = false;
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y / 2, 0);
         }
 
         //check if grounded for jump stuff
-        if (isGrounded())
+        if (isGrounded() && rb.velocity.y <= 0.0f)
         {
             coyotetimer = 0;
             canJump = true;
@@ -61,7 +66,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && canJump)
         {
             canJump = false;
-            rb.velocity = new Vector3(rb.velocity.x, jumpstrength, 0);
+            rb.velocity = new Vector3(rb.velocity.x, jumpstrength * jumpStrengthMultiplier, 0);
+            //reset multiplier
+            // Yes, you can jump very high if you are very lucky
+            jumpStrengthMultiplier = jumpStrengthMultiplierBaseValue;
         }
     }
     private void FixedUpdate()
@@ -92,7 +100,7 @@ public class PlayerController : MonoBehaviour
             
         return Physics.BoxCast(boxcollider.bounds.center, boxcollider.bounds.size, Vector3.down, transform.rotation, 0.1f, groundLayer);
         */
-        int groundMask = 1; // Only Ground ;
+        int groundMask = Physics.DefaultRaycastLayers ^ (1 << 4); // Only Ground ;
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.05f, groundMask);
     }
 }
