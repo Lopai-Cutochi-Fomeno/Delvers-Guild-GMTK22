@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     public float jumpStrengthMultiplier ;
     
 
+    Vector3 rotationAngle = new Vector3(0f, 180f, 0f);
+    public bool walkingRight = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,6 +47,15 @@ public class PlayerController : MonoBehaviour
             Debug.Log("small");
             canSmallJump = false;
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y / 2, 0);
+        }
+
+        //rotate the player into walking direction
+        bool lastWalkingRight = walkingRight;
+        if (Input.GetAxis("Horizontal") < 0) walkingRight = false;
+        if (Input.GetAxis("Horizontal") > 0) walkingRight = true;
+        if(lastWalkingRight != walkingRight)
+        {
+            transform.Rotate(rotationAngle);
         }
 
         //check if grounded for jump stuff
