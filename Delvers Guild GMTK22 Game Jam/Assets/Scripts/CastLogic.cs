@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class CastLogic : MonoBehaviour
 {
     public GameObject die;
+    public GameObject ice;
     public GameObject dieCam;
     // Time to fire
     public float castTime = 1.1f;
@@ -45,7 +46,7 @@ public class CastLogic : MonoBehaviour
                 canCast = false;
                 int abilitySelector = Random.Range(0, 6);
                 // StartCoroutine(Cast(abilitySelector));
-                StartCoroutine(Cast(1));
+                StartCoroutine(Cast(3));
             }
 
         }
@@ -74,6 +75,17 @@ public class CastLogic : MonoBehaviour
                 break;
             case 3:
                 Debug.Log(3 + " Knock Enemies Back" + abilitySelector);
+                {
+                var list = new List<GameObject>(inTriggerRange.Values);
+                foreach( GameObject o in list)
+                {
+                    Vector3 direction = o.transform.position - gameObject.transform.position ;
+                    Vector3 force = Vector3.Normalize(Vector3.Scale(direction, Vector3.right)) * 40;
+                    Debug.Log(force);
+                    StartCoroutine(pushBackEnemy(o, 0.5f, force));
+
+                }
+                }
                 break;
             case 4:
                 Debug.Log(4 + " Duplicate Enemies" + abilitySelector);
@@ -115,20 +127,36 @@ public class CastLogic : MonoBehaviour
     }
 
     private IEnumerator DestroyInSeconds(GameObject o, float seconds) {
+
         yield return new WaitForSeconds(seconds);
         Destroy(o);
         yield return null;
     }
     private IEnumerator AgentCon(GameObject o, float seconds) {
+        Debug.Log(o.name + " frozen");
         var agent = o.GetComponent<NavMeshAgent>();
+        agent.velocity = new Vector3(0f,0f,0f);
         agent.isStopped = true;
-        o.GetComponent<MeshRenderer>().enabled = false;
-        var newdie = GameObject.Instantiate(die, o.transform.position, o.transform.rotation);
+        // o.GetComponent<MeshRenderer>().enabled = false;
+        var newice = GameObject.Instantiate(ice, o.transform.position, o.transform.rotation);
         yield return new WaitForSeconds(seconds);
-        Destroy(newdie);
-        o.GetComponent<MeshRenderer>().enabled = true;
+        Destroy(newice);
+        // o.GetComponent<MeshRenderer>().enabled = true;
         agent.isStopped = false;
         yield return null;
     }
+    
+    private IEnumerator pushBackEnemy(GameObject o, float seconds, Vector3 velocity) 
+    {
+        EnemyController controller = o.GetComponent<EnemyController>();
+        controller.isPushedBack = true;
+        controller.pushVelocity = velocity;
+        controller.agent.velocity = velocity;
+        yield return new WaitForSeconds(seconds);
+        controller.isPushedBack = false;
+        controller.agent.velocity = new Vector3(0,0,0);
+        
+    }
+    
 
 }
