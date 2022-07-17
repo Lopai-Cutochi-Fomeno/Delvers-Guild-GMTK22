@@ -12,10 +12,15 @@ public class CameraController : MonoBehaviour
     float timeCount = 0.0f;
     float currentXRot = 0f;
 
+    public Transform target;
+    public float smoothSpeed = 0.125f;
+    public Vector3 offset;
+
     // Start is called before the first frame update
     void Start()
     {
         startXRot = transform.rotation.x;
+        offset = this.transform.position - target.position;
     }
 
     // Update is called once per frame
@@ -46,6 +51,13 @@ public class CameraController : MonoBehaviour
     {
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(currentXRot, transform.rotation.y, transform.rotation.z)), timeCount * moveSpeed);
         timeCount += Time.deltaTime;
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
     }
 
     //public void RotateCamera()
