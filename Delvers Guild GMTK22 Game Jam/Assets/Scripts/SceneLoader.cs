@@ -10,12 +10,12 @@ public class SceneLoader : MonoBehaviour
 
     public void StartGame()
     {
-        LoadScene("LevelPrototype");
+        LoadScene("Level");
     }
     
     public void ReloadScene()
     {
-        LoadScene("LevelPrototype");
+        LoadScene("Level");
     }
 
     public void LoadScene(string sceneName)
