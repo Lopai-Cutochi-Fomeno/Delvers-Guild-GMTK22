@@ -13,6 +13,11 @@ public class PlayerController : MonoBehaviour
     public float baseGravity = 10;
     public float maxFallSpeed = 50;
 
+    public int health = 6;
+    public float invulnerabilityTime=1;
+
+    public GameObject gameoverMenu;
+
     //public for the purpose of debugging and whatnot
     public float currentGravity;
     public bool canSmallJump = true;
@@ -22,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public float coyotetimer = 0;
     public float jumpStrengthMultiplierBaseValue = 1;
     public float jumpStrengthMultiplier ;
-    
+    private float invulnerabilityTimer = 0;
 
     Vector3 rotationAngle = new Vector3(0f, 180f, 0f);
     public bool walkingRight = true;
@@ -38,13 +43,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //degrease the invulnerabilityTimer
+        if (invulnerabilityTimer > 0)
+        {
+            invulnerabilityTimer -= Time.deltaTime;
+        }
+
         //Movement
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, rb.velocity.y, 0);
+            rb.velocity = new Vector3(Input.GetAxis("Horizontal") * speed, rb.velocity.y, 0);
 
         //small jumps
         if (Input.GetKeyUp(KeyCode.Space) && !isGrounded() && rb.velocity.y > 0 && canSmallJump)
         {
-            Debug.Log("small");
             canSmallJump = false;
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y / 2, 0);
         }
@@ -93,9 +103,57 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Enemy") && invulnerabilityTimer <= 0)
+        {
+            //reset invulnerability time
+            invulnerabilityTimer = invulnerabilityTime;
+
+            //degrease health and either call gameover funktion or update UI
+            health--;
+            if (health == 0)
+            {
+                //Gameover
+                Debug.Log("GameOver");
+                Time.timeScale = 0;
+                gameoverMenu.SetActive(true);
+                this.GetComponent<MenuScript>().gameover = true;
+            }
+            else
+            {
+                //Update UI
+                Debug.Log(health);
+            }
+        }
     }
+
+    /*
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy")&& invulnerabilityTimer<=0)
+        {
+            //reset invulnerability time
+            invulnerabilityTimer = invulnerabilityTime;
+            
+            //degrease health and either call gameover funktion or update UI
+            health--;
+            if (health == 0)
+            {
+                //Gameover
+                Debug.Log("GameOver");
+                Time.timeScale = 0;
+                gameoverMenu.SetActive(true);
+                this.GetComponent<MenuScript>().gameover = true;
+            }
+            else
+            {
+                //Update UI
+                Debug.Log(health);
+            }
+        }
+    }*/
+
     private void setGravity(float gravity)
     {
 
