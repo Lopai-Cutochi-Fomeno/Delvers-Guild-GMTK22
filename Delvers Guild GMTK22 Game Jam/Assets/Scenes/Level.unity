@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: a76d70d69fa49f740a39743837d47be9, type: 2}
   m_LightingSettings: {fileID: 1038173856}
 --- !u!196 &4
 NavMeshSettings:
@@ -11677,6 +11677,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12345cea540b2624e8f85d6d2fe48e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPushedBack: 0
+  isDying: 0
+  attacking: 0
+  pushVelocity: {x: 0, y: 0, z: 0}
   agent: {fileID: 0}
   checkDistance: 0
 --- !u!195 &883175064
@@ -13897,7 +13901,7 @@ LightingSettings:
   serializedVersion: 5
   m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 1
-  m_EnableRealtimeLightmaps: 0
+  m_EnableRealtimeLightmaps: 1
   m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
   m_AlbedoBoost: 1
@@ -21895,6 +21899,9 @@ MonoBehaviour:
   canJump: 0
   baseGravity: 50
   maxFallSpeed: 50
+  health: 6
+  invulnerabilityTime: 1
+  gameoverMenu: {fileID: 0}
   currentGravity: 0
   canSmallJump: 1
   distanceToGround: 1
@@ -21902,6 +21909,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   coyotetimer: 0
+  jumpStrengthMultiplierBaseValue: 1
+  jumpStrengthMultiplier: 0
   walkingRight: 1
 --- !u!114 &1525215165
 MonoBehaviour:
@@ -21916,6 +21925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 195928212}
+  gameover: 0
 --- !u!1001 &1528936591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27612,6 +27622,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12345cea540b2624e8f85d6d2fe48e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPushedBack: 0
+  isDying: 0
+  attacking: 0
+  pushVelocity: {x: 0, y: 0, z: 0}
   agent: {fileID: 0}
   checkDistance: 0
 --- !u!195 &1967752451
